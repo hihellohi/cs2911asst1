@@ -7,6 +7,7 @@ JC = javac
 
 
 CLASSES = \
+		  VanRentalSystem.java \
 
 FILES = $(addprefix src/, $(CLASSES))
 
@@ -14,7 +15,7 @@ classes: $(addprefix src/, $(CLASSES:.java=.class))
 
 default: classes
 
-docs:
+docs: classes
 	javadoc -d docs $(FILES)
 
 clean: 

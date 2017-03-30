@@ -8,6 +8,9 @@ JC = javac
 
 CLASSES = \
 		  VanRentalSystem.java \
+		  Caravan.java \
+		  Depot.java \
+		  Catalog.java \
 
 FILES = $(addprefix src/, $(CLASSES))
 

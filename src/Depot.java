@@ -32,7 +32,7 @@ public class Depot implements Comparable<Depot> {
 			if((nAutos < reqAutos || !van.getIsAuto()) 
 					&& (nManuals < reqManuals || van.getIsAuto()) 
 					&& van.isAvailable(timeslot)){
-				bookings.add(new Booking(van));
+				bookings.add(new Booking(van, timeslot));
 				if(van.getIsAuto()){
 					nAutos++;
 				}
@@ -47,6 +47,12 @@ public class Depot implements Comparable<Depot> {
 
 	public int compareTo(Depot other){
 		return order - other.order;
+	}
+
+	public String print(){
+		StringBuilder out = new StringBuilder();
+
+		return out.toString();
 	}
 
 	@Override public String toString(){

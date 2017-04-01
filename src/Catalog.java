@@ -12,6 +12,8 @@ public class Catalog{
 	Map<String, Depot> allDepots;
 	Map<String, Order> allOrders;
 
+	static final String REJECTED = "rejected";
+
 	public Catalog(){
 		depotOrder = new ArrayList<Depot>();
 		allDepots = new HashMap<String, Depot>();
@@ -34,17 +36,49 @@ public class Catalog{
 	}
 
 	public String makeOrder(String id, Interval interval, int autos, int manuals){
-		Order order = new Order(interval, autos, manuals);
+		Order order = new Order(interval, autos, manuals, depotOrder);
 
-		String out = order.tryGetBooking(depotOrder);
-		if(out != null){
-			out = id + " " + out;
+		if(order.isValid()){
 			allOrders.put(id, order);
+			return id + " " + order.toString();
 		}
 		else{
-			out = "rejected";
+			return REJECTED;
 		}
+	}
 
-		return out;
+	public String changeOrder(String id, Interval interval, int autos, int manuals){
+
+		Order oldOrder = cancelOrderPrivate(id);
+
+		String result = makeOrder(id, interval, autos, manuals);
+		if(result.equals(REJECTED)){
+			oldOrder.lockIn();
+			allOrders.put(id, oldOrder);
+			return REJECTED;
+		}
+		else{
+			return result;
+		}
+	}
+
+	public String print(String depotName){
+		return allDepots.get(depotName).print();
+	}
+
+	public String cancelOrder(String id){
+		return cancelOrderPrivate(id) == null ? REJECTED : id; 
+	}
+
+	Order cancelOrderPrivate(String id){
+		Order order = allOrders.getOrDefault(id, null);
+		if(order == null){
+			return null;
+		}
+		else{
+			order.delete();
+			allOrders.remove(id);
+			return order;
+		}
 	}
 }

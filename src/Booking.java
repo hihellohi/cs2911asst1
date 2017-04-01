@@ -8,9 +8,19 @@
 public class Booking {
 
 	Caravan van;
+	Interval timeslot;
 
-	public Booking(Caravan van){
+	public Booking(Caravan van, Interval timeslot){
 		this.van = van;
+		this.timeslot = timeslot;
+	}
+
+	public void commit(){
+		van.addBooking(timeslot);
+	}
+
+	public void uncommit(){
+		van.removeBooking(timeslot);
 	}
 
 	public String vanString(){

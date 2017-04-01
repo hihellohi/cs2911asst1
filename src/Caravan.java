@@ -25,10 +25,16 @@ public class Caravan implements Comparable<Caravan> {
 	}
 
 	public int compareTo(Caravan other){
-		return order - other.order;
+		int depotCmp = depot.compareTo(other.getDepot());
+
+		return depotCmp != 0 ? depotCmp : order - other.order;
 	}
 	
 	public boolean getIsAuto(){
 		return isAuto;
+	}
+
+	public Depot getDepot(){
+		return depot;
 	}
 }

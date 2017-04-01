@@ -8,26 +8,36 @@ import java.util.*;
  */
 public class Catalog{
 
-	List<Caravan> allVans;
+	List<Depot> depotOrder;
 	Map<String, Depot> allDepots;
 	Map<String, Order> allOrders;
 
 	public Catalog(){
-		allVans = new ArrayList<Caravan>();
+		depotOrder = new ArrayList<Depot>();
 		allDepots = new HashMap<String, Depot>();
 		allOrders = new HashMap<String, Order>();
 	}
 
 	public void addVan(String depotName, String vanName, boolean isAuto){
-		Depot depot = allDepots.putIfAbsent(depotName, new Depot(depotName));
-		Caravan van = new Caravan(vanName, depot, allDepots.size(), isAuto); 
-		allVans.add(van);
+		Depot depot;
+
+		if(allDepots.containsKey(depotName)){
+			depot = allDepots.get(depotName);
+		}
+		else{
+			depot = new Depot(depotName, allDepots.size());
+			allDepots.put(depotName, depot);
+			depotOrder.add(depot);
+		}
+
+		depot.addVan(vanName, isAuto);
+		System.out.println(depotOrder.size());
 	}
 
 	public void makeOrder(String id, Interval interval, int autos, int manuals){
 		Order order = new Order(interval, autos, manuals);
 
-		if(order.tryGetBooking(allVans)){
+		if(order.tryGetBooking(depotOrder)){
 			allOrders.put(id, order);
 		}
 	}

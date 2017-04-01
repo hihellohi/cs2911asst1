@@ -21,12 +21,12 @@ public class Order{
 		bookings = new ArrayList<Booking>();
 	}
 
-	public boolean tryGetBooking(List<Caravan> vans){
+	public boolean tryGetBooking(List<Depot> depots){
 		ArrayList<Booking> out = new ArrayList<Booking>();
 
-		for(Iterator<Caravan> it = vans.iterator(); it.hasNext(); ){
-			Caravan van = it.next();
-			System.out.println(van);
+		for(Iterator<Depot> it = depots.iterator(); it.hasNext(); ){
+			Depot depot = it.next();
+			System.out.println(depot);
 		}
 		
 		return true;

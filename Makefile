@@ -11,6 +11,9 @@ CLASSES = \
 		  Caravan.java \
 		  Depot.java \
 		  Catalog.java \
+		  Order.java \
+		  Booking.java \
+		  Interval.java \
 
 FILES = $(addprefix src/, $(CLASSES))
 

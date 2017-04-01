@@ -7,13 +7,11 @@ import java.util.*;
  * @author	Kevin Ni
  * @since	2017-03-30
  */
-
 public class Order{
 
 	Interval interval;
 	int autos;
 	int manuals;
-
 	List<Booking> bookings;
 
 	public Order(Interval interval, int autos, int manuals){
@@ -23,12 +21,14 @@ public class Order{
 		bookings = new ArrayList<Booking>();
 	}
 
-	public ArrayList<Booking> getBookings(List<Caravan> vans){
-		//for(Iterator<Caravan> i = vans.iterator(); i < vans.length; i++){
-		//}
-		
-		vans.iterator().forEachRemaining(van -> {
+	public boolean tryGetBooking(List<Caravan> vans){
+		ArrayList<Booking> out = new ArrayList<Booking>();
+
+		for(Iterator<Caravan> it = vans.iterator(); it.hasNext(); ){
+			Caravan van = it.next();
 			System.out.println(van);
-		});
+		}
+		
+		return true;
 	}
 }

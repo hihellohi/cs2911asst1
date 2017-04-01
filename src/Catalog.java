@@ -34,11 +34,14 @@ public class Catalog{
 		System.out.println(depotOrder.size());
 	}
 
-	public void makeOrder(String id, Interval interval, int autos, int manuals){
+	public String makeOrder(String id, Interval interval, int autos, int manuals){
 		Order order = new Order(interval, autos, manuals);
 
-		if(order.tryGetBooking(depotOrder)){
+		String out = order.tryGetBooking(depotOrder);
+		if(out != null){
 			allOrders.put(id, order);
 		}
+
+		return out;
 	}
 }

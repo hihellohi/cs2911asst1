@@ -7,4 +7,17 @@
 
 public class Booking {
 
+	Caravan van;
+
+	public String vanString(){
+		return van.toString();
+	}
+
+	public String depotString(){
+		return van.depotString();
+	}
+
+	public Depot getDepot(){
+		return van.getDepot();
+	}
 }

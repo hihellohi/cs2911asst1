@@ -34,6 +34,10 @@ public class Caravan implements Comparable<Caravan> {
 		return isAuto;
 	}
 
+	public String depotString(){
+		return depot.toString();
+	}
+
 	public Depot getDepot(){
 		return depot;
 	}

@@ -52,6 +52,10 @@ public class Depot implements Comparable<Depot> {
 	public String print(){
 		StringBuilder out = new StringBuilder();
 
+		vans.iterator().forEachRemaining(van -> {
+			out.append(van.printBookings());
+		});
+
 		return out.toString();
 	}
 

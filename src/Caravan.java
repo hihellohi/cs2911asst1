@@ -40,6 +40,17 @@ public class Caravan implements Comparable<Caravan> {
 		bookings.remove(timeslot);
 	}
 
+	public String printBookings(){
+		StringBuilder out = new StringBuilder();
+
+		bookings.iterator().forEachRemaining(booking -> {
+			out.append(depotString() + " " + toString() + " " + booking.toString());
+			out.append('\n');
+		});
+
+		return out.toString();
+	}
+
 	public int compareTo(Caravan other){
 		int depotCmp = depot.compareTo(other.getDepot());
 

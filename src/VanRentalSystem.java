@@ -10,10 +10,8 @@ import java.text.*;
  */
 public class VanRentalSystem{
 
-	String fin;
-	SimpleDateFormat formatter;
 
-	static final String DATE_FORMAT = "hh MMM dd";
+	static final String DATE_FORMAT = "HH MMM dd";
 	static final String LOCATION = "Location";
 	static final String REQUEST = "Request";
 	static final String CHANGE = "Change";
@@ -21,6 +19,8 @@ public class VanRentalSystem{
 	static final String PRINT = "Print";
 	static final String AUTOMATIC = "Automatic";
 	static final String MANUAL = "Manual";
+
+	static SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
 
 	/**
 	 * This is the entry point of the program
@@ -31,9 +31,10 @@ public class VanRentalSystem{
 		new VanRentalSystem(args[0]).run();
 	}
 
+	String fin;
+
 	VanRentalSystem(String fin){
 		this.fin = fin;
-		formatter = new SimpleDateFormat(DATE_FORMAT);
 	}
 
 	void run(){
@@ -97,7 +98,7 @@ public class VanRentalSystem{
 				break;
 
 			case PRINT:
-				System.out.println(catalog.print(input[1]));
+				System.out.print(catalog.print(input[1]));
 				break;
 		}
 	}

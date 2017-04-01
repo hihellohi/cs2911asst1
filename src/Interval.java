@@ -1,4 +1,5 @@
 import java.util.*;
+import java.text.*;
 
 /**
  * represents a period of time
@@ -7,6 +8,10 @@ import java.util.*;
  * @since   2017-03-30
  */
 public class Interval implements Comparable<Interval>{
+
+	static final String DATE_FORMAT = "HH:mm MMM dd";
+	static SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
+
 	Calendar start;
 	Calendar end;
 
@@ -29,6 +34,10 @@ public class Interval implements Comparable<Interval>{
 
 	public Calendar getEnd(){
 		return end;
+	}
+
+	@Override public String toString(){
+		return formatter.format(start.getTime()) + " " + formatter.format(end.getTime());
 	}
 }
 

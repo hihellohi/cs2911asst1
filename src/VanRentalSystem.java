@@ -68,7 +68,7 @@ public class VanRentalSystem{
 						}
 
 						if(input[0].equals(REQUEST)){
-							catalog.makeOrder(input[1], interval, auto, manual);
+							System.out.println("Booking " + catalog.makeOrder(input[1], interval, auto, manual));
 						}
 				}
 			}

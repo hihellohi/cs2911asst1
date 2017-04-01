@@ -9,13 +9,13 @@ import java.util.*;
  */
 public class Order{
 
-	Interval interval;
+	Interval timeslot;
 	int autos;
 	int manuals;
 	List<Booking> bookings;
 
-	public Order(Interval interval, int autos, int manuals){
-		this.interval = interval;
+	public Order(Interval timeslot, int autos, int manuals){
+		this.timeslot = timeslot;
 		this.autos = autos;
 		this.manuals = manuals;
 		bookings = new ArrayList<Booking>();
@@ -25,32 +25,38 @@ public class Order{
 		ArrayList<Booking> out = new ArrayList<Booking>();
 
 		int countAutos = autos, countManuals = manuals;
-		Iterator<Depot> it = depots.iterator();
-		while(it.hasNext() && countAutos > 0 && countManuals > 0){
-			Depot depot = it.next();
+		Iterator<Depot> itDepot = depots.iterator();
+		while(itDepot.hasNext() && (countAutos > 0 || countManuals > 0)){
+			Depot depot = itDepot.next();
 
-			Response response = depot.request(countAutos, countManuals);
+			Response response = depot.request(timeslot, countAutos, countManuals);
 
 			countAutos -= response.getAutos();
-			countManuals -= response.getBookings().size() - response.getAutos();
+			countManuals -= response.getManuals();
 			out.addAll(response.getBookings());
 		}
 		
 		StringBuilder result = new StringBuilder();
 		Depot last = null;
-		out.iterator().forEachRemaining(booking -> {
-			if(last == null){
-				result.append(booking.depotString() + " ");			
-			}
-			else if(last == booking.getDepot()){
-				result.append("; " + booking.depotString() + " ");			
-			}
-			else{
+
+		Iterator<Booking> itBooking = out.iterator();
+		while(itBooking.hasNext()){
+			Booking booking = itBooking.next();					
+
+			if(last == booking.getDepot()){
 				result.append(", ");
 			}
-
+			else{ 
+				if(last == null){
+					result.append(booking.depotString() + " ");			
+				}
+				else {
+					result.append("; " + booking.depotString() + " ");			
+				}
+				last = booking.getDepot();
+			}
 			result.append(booking.vanString());
-		});
+		}
 		
 		return result.toString();
 	}
@@ -66,6 +72,10 @@ public class Order{
 
 		public int getAutos(){
 			return autos;
+		}
+
+		public int getManuals(){
+			return bookings.size() - autos;
 		}
 
 		public List<Booking> getBookings(){

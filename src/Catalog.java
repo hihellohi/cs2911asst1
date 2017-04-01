@@ -31,7 +31,6 @@ public class Catalog{
 		}
 
 		depot.addVan(vanName, isAuto);
-		System.out.println(depotOrder.size());
 	}
 
 	public String makeOrder(String id, Interval interval, int autos, int manuals){
@@ -39,7 +38,11 @@ public class Catalog{
 
 		String out = order.tryGetBooking(depotOrder);
 		if(out != null){
+			out = id + " " + out;
 			allOrders.put(id, order);
+		}
+		else{
+			out = "rejected";
 		}
 
 		return out;

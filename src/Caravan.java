@@ -33,6 +33,10 @@ public class Caravan implements Comparable<Caravan> {
 	public boolean getIsAuto(){
 		return isAuto;
 	}
+	
+	public boolean isAvailable(Interval timeslot){
+		return true;
+	}
 
 	public String depotString(){
 		return depot.toString();

@@ -9,6 +9,10 @@ public class Booking {
 
 	Caravan van;
 
+	public Booking(Caravan van){
+		this.van = van;
+	}
+
 	public String vanString(){
 		return van.toString();
 	}

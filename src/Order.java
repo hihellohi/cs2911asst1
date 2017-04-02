@@ -10,6 +10,7 @@ import java.util.*;
  * @inv autos &gt;= 0
  * @inv manuals &gt;= 0
  * @inv timeslot != null
+ * @inv !isValid() || ((x.getVan() != y.getVan || x == y) for each x, y in bookings)
  */
 public class Order{
 

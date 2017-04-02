@@ -31,7 +31,7 @@ public class Booking {
 	/**
 	 * locks in this booking 
 	 *
-	 * @pre van.isAvailable(timeslot)
+	 * @pre no other Booking with the same van has called commit() since the last call of uncommit() or object creation
 	 */
 	public void commit(){
 		van.addBooking(timeslot);
@@ -54,6 +54,16 @@ public class Booking {
 	 */
 	public String vanString(){
 		return van.toString();
+	}
+
+	/**
+	 * gets the booked caravan 
+	 *
+	 * @post value != null
+	 * @return the booked caravan 
+	 */
+	public Caravan getVan(){
+		return van;
 	}
 
 	/**

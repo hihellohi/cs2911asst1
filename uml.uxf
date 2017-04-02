@@ -1,81 +1,321 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.2">
-  <zoom_level>11</zoom_level>
+  <zoom_level>8</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>11</x>
-      <y>440</y>
-      <w>231</w>
-      <h>44</h>
+      <x>808</x>
+      <y>200</y>
+      <w>352</w>
+      <h>136</h>
     </coordinates>
-    <panel_attributes>*VanRentalSystem*</panel_attributes>
+    <panel_attributes>*VanRentalSystem*
+-
+_-formatter : SimpleDateFormat_
+-catalog : Catalog
+-
+_+main(args:String[])_
+-&lt;&lt;constructor&gt;&gt;VanRentalSystem()
+-run(fin:String)
+-executeLine(line:String)
+-stringsToCalendar(hour:String, month:String, date:String):Calendar
+-digest(s:String):String[]</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>363</x>
-      <y>440</y>
-      <w>231</w>
-      <h>44</h>
+      <x>1056</x>
+      <y>640</y>
+      <w>336</w>
+      <h>144</h>
     </coordinates>
-    <panel_attributes>*Depot*</panel_attributes>
+    <panel_attributes>*Depot*
+-
+-name:String
+-vans:List&lt;Caravan&gt;
+-order:int
+-
++&lt;&lt;constructor&gt;&gt;Depot(depotName:String, order:int)
++addVan(vanName:String, isAuto:boolean)
++request(timeslot:Interval, reqAutos:int, reqManuals:int):Response
++compareTo(other:Depot):int
++print():String
++toString():String</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>363</x>
-      <y>572</y>
-      <w>231</w>
-      <h>44</h>
+      <x>1008</x>
+      <y>856</y>
+      <w>432</w>
+      <h>224</h>
     </coordinates>
-    <panel_attributes>*Campervan*</panel_attributes>
+    <panel_attributes>*Caravan*
+-
+-name:String
+-order:int
+-depot:Depot
+-isAuto:boolean
+-bookings:SortedSet&lt;Interval&gt;
+-
++&lt;&lt;constructor&gt;&gt;Caravan(caravanName:String, depot:Depot, order:int, isAuto:boolean)
++isAvailable(timeSlot:Interval):boolean
++addBooking(timeslot:Interval)
++removeBooking(timeslot:Interval)
++printBookings():String
++compareTo(other:Caravan):int
++toString():String
++getIsAuto():boolean
++depotString():String
++getDepot:Depot</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>11</x>
-      <y>297</y>
-      <w>231</w>
-      <h>44</h>
+      <x>808</x>
+      <y>392</y>
+      <w>352</w>
+      <h>152</h>
     </coordinates>
-    <panel_attributes>*Booking*</panel_attributes>
+    <panel_attributes>*Catalog*
+-
+-depotOrder:List&lt;Depot&gt;
+-allDepots:Map&lt;String, Depot&gt;
+-allOrders:Map&lt;String, Order&gt;
+-
++&lt;&lt;constructor&gt;&gt;Catalog()
++addVan(depotName:String, vanName:String, isAuto:boolean)
++makeOrder(id:String, interval:Interval, autos:int, manuals:int):String
++changeOrder(id:String, interval:Interval, autos:int, manuals:int):String
++print(depotName String):String
++cancelOrder(id:String):String
+-cancelOrderPrivate(id:String):Order</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>856</x>
+      <y>1104</y>
+      <w>272</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>*Interval*
+-
+_-formatter:SimpleDateFormat_
+-start:Calendar
+-end:Calendar
+-
++&lt;&lt;constructor&gt;&gt;Interval(start:Calendar, end:Calendar)
++intersects(other:Interval):boolean
++compareTo(other:Interval):int
++getStart():Calendar
++getEnd():Calendar
++toString():String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>536</x>
+      <y>640</y>
+      <w>416</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>*Order*
+-
+-timeslot:Interval
+-autos:int
+-manuals:int
+-bookings:List&lt;Booking&gt;
+-
++&lt;&lt;constructor&gt;&gt;Order(timeslot:Interval, autos:int, manuals:int, depots:List&lt;Depot&gt;)
++toString():String
++isValid():boolean
++delete()
++lockIn()
+-requestBookings(depots:List&lt;Depot&gt;)
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>231</x>
-      <y>451</y>
-      <w>154</w>
-      <h>33</h>
+      <x>976</x>
+      <y>328</y>
+      <w>24</w>
+      <h>80</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1
+
+bg=white</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>856</y>
+      <w>288</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>*Booking*
+-
+-van:Caravan
+-timeslot:Interval
+-
++&lt;&lt;constructor&gt;&gt;Booking(van:Caravan, timeslot:Interval)
++commit()
++uncommit()
++vanString():String
++getVan():Caravan
++depotString():String
++getDepot():Depot</panel_attributes>
+    <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>473</x>
-      <y>473</y>
-      <w>33</w>
-      <h>121</h>
+      <x>976</x>
+      <y>536</y>
+      <w>24</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>110</x>
-      <y>330</y>
-      <w>33</w>
-      <h>132</h>
+      <x>736</x>
+      <y>584</y>
+      <w>504</w>
+      <h>24</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;610.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>736</x>
+      <y>584</y>
+      <w>40</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..*</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1216</x>
+      <y>584</y>
+      <w>40</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..*</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1192</x>
+      <y>776</y>
+      <w>40</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+bg=black
+m2=1..*</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>736</x>
+      <y>792</y>
+      <w>40</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=0..*
+bg=black</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1240</x>
+      <y>776</y>
+      <w>24</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1</panel_attributes>
     <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>736</x>
+      <y>992</y>
+      <w>24</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>736</x>
+      <y>1120</y>
+      <w>136</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1</panel_attributes>
+    <additional_attributes>150.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>16</x>
+      <y>16</y>
+      <w>24</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1216</x>
+      <y>1072</y>
+      <w>24</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1120</x>
+      <y>1120</y>
+      <w>120</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..*</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
   </element>
 </diagram>

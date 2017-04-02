@@ -19,10 +19,12 @@ FILES = $(addprefix src/, $(CLASSES))
 
 classes: $(addprefix src/, $(CLASSES:.java=.class))
 
+srcfiles: $(FILES)
+
 default: classes
 
-docs: classes
-	javadoc -d docs $(FILES)
+docs: srcfiles
+	javadoc -tag pre:a:"Preconditions:" -tag post:a:"Postconditions:" -tag inv:a:"Invariants:" -d docs $(FILES)
 
 clean: 
 	$(RM) bin/*.class

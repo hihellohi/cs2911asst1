@@ -54,7 +54,6 @@ public class Depot implements Comparable<Depot> {
 	 * @pre reqManuals &gt;= 0
 	 *
 	 * @post value != null
-	 * @post (x.getVan() != y.getVan() || x == y) for each x, y value.getBookings()
 	 *
 	 * @return an Depot.Response object that contains the bookings that can be made
 	 */

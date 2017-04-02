@@ -10,7 +10,6 @@ import java.util.*;
  * @inv autos &gt;= 0
  * @inv manuals &gt;= 0
  * @inv timeslot != null
- * @inv !isValid() || ((x.getVan() != y.getVan || x == y) for each x, y in bookings)
  */
 public class Order{
 
@@ -99,7 +98,6 @@ public class Order{
 	 * commits all of the bookings associated with this order
 	 *
 	 * @pre isValid()
-	 * @pre no other Order.lockIn() has been called since the last call of delete() or object creation
 	 */
 	public void lockIn(){
 		bookings.iterator().forEachRemaining(booking -> {

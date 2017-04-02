@@ -10,7 +10,6 @@ import java.util.*;
  * @inv order &gt;= 0
  * @inv depot != null
  * @inv bookings != null
- * @inv (x == y || !x.intersects(y)) for each x,y in bookings
  */
 public class Caravan implements Comparable<Caravan> {
 
@@ -63,7 +62,6 @@ public class Caravan implements Comparable<Caravan> {
 	 * @param timeslot timeslot to be booked
 	 * 
 	 * @pre timeslot != null
-	 * @pre isAvailable(timeslot)
 	 */
 	public void addBooking(Interval timeslot){
 		bookings.add(timeslot);

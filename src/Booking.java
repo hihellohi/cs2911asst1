@@ -30,8 +30,6 @@ public class Booking {
 
 	/**
 	 * locks in this booking 
-	 *
-	 * @pre no other Booking with the same van has called commit() since the last call of uncommit() or object creation
 	 */
 	public void commit(){
 		van.addBooking(timeslot);

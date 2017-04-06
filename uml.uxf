@@ -130,7 +130,7 @@ _-formatter:SimpleDateFormat_
 -timeslot:Interval
 -autos:int
 -manuals:int
--bookings:List&lt;Caravan&gt;
+-caravans:List&lt;Caravan&gt;
 -
 +&lt;&lt;constructor&gt;&gt;Order(timeslot:Interval, autos:int, manuals:int, depots:List&lt;Depot&gt;)
 +toString():String
@@ -262,12 +262,12 @@ m2=0..*</panel_attributes>
     <panel_attributes>*Depot.Response*
 -
 -autos:int
--bookings:List&lt;Caravan&gt;
+-caravans:List&lt;Caravan&gt;
 -
--&lt;&lt;constructor&gt;&gt;Response(autos:int, booking:List&lt;Booking&gt;)
+-&lt;&lt;constructor&gt;&gt;Response(autos:int, caravans:List&lt;Caravan&gt;)
 +getAutos():int
 +getManuals():int
-+getBookings():List&lt;Caravan&gt;</panel_attributes>
++getCaravans():List&lt;Caravan&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

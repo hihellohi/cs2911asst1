@@ -1,0 +1,12 @@
+Cancel rejected
+Booking 1 1 a, b, c; 2 d
+Booking 2 2 e, f
+1 a 01:00 Jan 01 02:00 Jan 01
+1 b 01:00 Jan 01 02:00 Jan 01
+1 c 01:00 Jan 01 02:00 Jan 01
+2 d 01:00 Jan 01 02:00 Jan 01
+2 e 02:00 Jan 01 02:00 Jan 01
+2 f 02:00 Jan 01 02:00 Jan 01
+Cancel 1
+2 e 02:00 Jan 01 02:00 Jan 01
+2 f 02:00 Jan 01 02:00 Jan 01

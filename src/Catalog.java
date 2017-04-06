@@ -72,15 +72,15 @@ public class Catalog{
 	 * @return the output string of the order if accepted, REJECTED otherwise
 	 */
 	public String makeOrder(String id, Interval interval, int autos, int manuals){
-		Order order = new Order(interval, autos, manuals, depotOrder);
+		if(!allOrders.containsKey(id)){
+			Order order = new Order(interval, autos, manuals, depotOrder);
 
-		if(order.isValid()){
-			allOrders.put(id, order);
-			return id + " " + order.toString();
+			if(order.isValid()){
+				allOrders.put(id, order);
+				return id + " " + order.toString();
+			}
 		}
-		else{
-			return REJECTED;
-		}
+		return REJECTED;
 	}
 
 	/**
@@ -103,6 +103,9 @@ public class Catalog{
 	public String changeOrder(String id, Interval interval, int autos, int manuals){
 
 		Order oldOrder = cancelOrderPrivate(id);
+		if(oldOrder == null) { 
+			return REJECTED;
+		}
 
 		String result = makeOrder(id, interval, autos, manuals);
 		if(result.equals(REJECTED)){
@@ -110,9 +113,7 @@ public class Catalog{
 			allOrders.put(id, oldOrder);
 			return REJECTED;
 		}
-		else{
-			return result;
-		}
+		return result;
 	}
 
 	/**

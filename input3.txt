@@ -1,0 +1,22 @@
+Location 1 a Automatic
+Location 1 b Automatic
+Location 1 c Manual
+
+Location 2 d Automatic
+Location 2 e Automatic
+Location 2 f Manual
+
+Print 1 #should be empty
+Print 2 #should be empty
+
+Cancel 1 #should be rejected
+Request 1 1 Jan 1 2 Jan 1 1 Manual 3 Automatic
+Request 2 2 Jan 1 2 Jan 1 1 Manual 1 Automatic
+
+Print 1 
+Print 2 
+
+Cancel 1 # should free the bookings on depot 1
+
+Print 1 
+Print 2 

@@ -9,6 +9,7 @@ import java.text.*;
  *
  * @inv start != null
  * @inv end != null
+ * @inv start.before(end)
  */
 public class Interval implements Comparable<Interval>{
 
@@ -26,6 +27,7 @@ public class Interval implements Comparable<Interval>{
 	 *
 	 * @pre start != null
 	 * @pre end != null
+	 * @pre start.before(end)
 	 */
 	public Interval(Calendar start, Calendar end){
 		this.start = start;

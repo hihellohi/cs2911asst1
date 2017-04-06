@@ -16,7 +16,7 @@ public class Order{
 	Interval timeslot;
 	int autos;
 	int manuals;
-	List<Booking> bookings;
+	List<Caravan> caravans;
 
 	/**
 	 * class constructor
@@ -36,7 +36,7 @@ public class Order{
 		this.timeslot = timeslot;
 		this.autos = autos;
 		this.manuals = manuals;
-		bookings = new ArrayList<Booking>();
+		caravans = new ArrayList<Caravan>();
 		requestBookings(depots);
 	}
 
@@ -52,23 +52,23 @@ public class Order{
 		StringBuilder result = new StringBuilder();
 		Depot last = null;
 
-		Iterator<Booking> itBooking = bookings.iterator();
-		while(itBooking.hasNext()){
-			Booking booking = itBooking.next();					
+		Iterator<Caravan> itCaravan = caravans.iterator();
+		while(itCaravan.hasNext()){
+			Caravan caravan = itCaravan.next();					
 
-			if(last == booking.getDepot()){
+			if(last == caravan.getDepot()){
 				result.append(", ");
 			}
 			else{ 
 				if(last == null){
-					result.append(booking.depotString() + " ");			
+					result.append(caravan.depotString() + " ");			
 				}
 				else {
-					result.append("; " + booking.depotString() + " ");			
+					result.append("; " + caravan.depotString() + " ");			
 				}
-				last = booking.getDepot();
+				last = caravan.getDepot();
 			}
-			result.append(booking.vanString());
+			result.append(caravan.toString());
 		}
 		return result.toString();
 	}
@@ -79,7 +79,7 @@ public class Order{
 	 * @return true iff this booking has been accepted
 	 */
 	public boolean isValid(){
-		return bookings != null;
+		return caravans != null;
 	}
 
 	/**
@@ -89,8 +89,8 @@ public class Order{
 	 * @pre lockIn() has been called at least once since the last call of delete() and object creation
 	 */
 	public void delete(){
-		bookings.iterator().forEachRemaining(booking -> {
-			booking.uncommit();
+		caravans.iterator().forEachRemaining(van -> {
+			van.removeBooking(timeslot);
 		});
 	}
 
@@ -100,8 +100,8 @@ public class Order{
 	 * @pre isValid()
 	 */
 	public void lockIn(){
-		bookings.iterator().forEachRemaining(booking -> {
-			booking.commit();
+		caravans.iterator().forEachRemaining(van -> {
+			van.addBooking(timeslot);
 		});
 	}
 
@@ -123,11 +123,11 @@ public class Order{
 
 			countAutos -= response.getAutos();
 			countManuals -= response.getManuals();
-			bookings.addAll(response.getBookings());
+			caravans.addAll(response.getCaravans());
 		}
 
 		if(countAutos + countManuals > 0){
-			bookings = null;
+			caravans = null;
 		}
 		else{
 			lockIn();

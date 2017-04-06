@@ -58,7 +58,7 @@ public class Depot implements Comparable<Depot> {
 	 * @return an Depot.Response object that contains the bookings that can be made
 	 */
 	public Response request(Interval timeslot, int reqAutos, int reqManuals){
-		List<Booking> bookings = new ArrayList<Booking>();
+		List<Caravan> caravans = new ArrayList<Caravan>();
 
 		int nAutos = 0, nManuals = 0;
 		Iterator<Caravan> it = vans.iterator();
@@ -67,7 +67,7 @@ public class Depot implements Comparable<Depot> {
 			if((nAutos < reqAutos || !van.getIsAuto()) 
 					&& (nManuals < reqManuals || van.getIsAuto()) 
 					&& van.isAvailable(timeslot)){
-				bookings.add(new Booking(van, timeslot));
+				caravans.add(van);
 				if(van.getIsAuto()){
 					nAutos++;
 				}
@@ -77,7 +77,7 @@ public class Depot implements Comparable<Depot> {
 			}
 		}
 
-		return new Response(nAutos, bookings);
+		return new Response(nAutos, caravans);
 	}
 
 	/**
@@ -126,33 +126,33 @@ public class Depot implements Comparable<Depot> {
 	 * @since	2017-03-30
 	 *
 	 * @inv autos &gt;= 0
-	 * @inv autos &lt;= bookings.size()
-	 * @inv bookings != null
+	 * @inv autos &lt;= caravans.size()
+	 * @inv caravans != null
 	 */
 	public static class Response{
 		int autos;
-		List<Booking> bookings;
+		List<Caravan> caravans;
 
 		/**
 		 * class constructor
 		 *
 		 * @param autos number of automatic vans that can be booked
-		 * @param bookings list of vans that can be booked
+		 * @param caravans list of vans that can be booked
 		 *
 		 * @pre auto &gt;= 0
-		 * @pre auto &lt;= bookings.size()
-		 * @pre bookings &gt;= 0
+		 * @pre auto &lt;= caravans.size()
+		 * @pre caravans &gt;= 0
 		 */
-		Response(int autos, List<Booking> bookings){
+		Response(int autos, List<Caravan> caravans){
 			this.autos = autos;
-			this.bookings = bookings;
+			this.caravans = caravans;
 		}
 
 		/**
 		 * returns number of autos
 		 *
 		 * @post value &gt;= 0
-		 * @post value &lt;= getBookings().size()
+		 * @post value &lt;= getCaravans().size()
 		 * @return the number of autos
 		 */
 		public int getAutos(){
@@ -163,11 +163,11 @@ public class Depot implements Comparable<Depot> {
 		 * returns number of manuals
 		 *
 		 * @post value &gt;= 0
-		 * @post value &lt;= getBookings().size()
+		 * @post value &lt;= getCaravans().size()
 		 * @return the number of manuals
 		 */
 		public int getManuals(){
-			return bookings.size() - autos;
+			return caravans.size() - autos;
 		}
 
 		/**
@@ -176,8 +176,8 @@ public class Depot implements Comparable<Depot> {
 		 * @post value != null
 		 * @return the list of vans that can be booked
 		 */
-		public List<Booking> getBookings(){
-			return bookings;
+		public List<Caravan> getCaravans(){
+			return caravans;
 		}
 	}
 }

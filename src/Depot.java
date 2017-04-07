@@ -61,9 +61,7 @@ public class Depot implements Comparable<Depot> {
 		List<Caravan> caravans = new ArrayList<Caravan>();
 
 		int nAutos = 0, nManuals = 0;
-		Iterator<Caravan> it = vans.iterator();
-		while(it.hasNext()){
-			Caravan van = it.next();
+		for(Caravan van : vans){
 			if((nAutos < reqAutos || !van.getIsAuto()) 
 					&& (nManuals < reqManuals || van.getIsAuto()) 
 					&& van.isAvailable(timeslot)){
@@ -102,9 +100,9 @@ public class Depot implements Comparable<Depot> {
 	public String print(){
 		StringBuilder out = new StringBuilder();
 
-		vans.iterator().forEachRemaining(van -> {
+		for(Caravan van: vans){
 			out.append(van.printBookings());
-		});
+		}
 
 		return out.toString();
 	}

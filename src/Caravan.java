@@ -88,10 +88,10 @@ public class Caravan implements Comparable<Caravan> {
 	public String printBookings(){
 		StringBuilder out = new StringBuilder();
 
-		bookings.iterator().forEachRemaining(booking -> {
+		for(Interval booking: bookings){
 			out.append(depotString() + " " + toString() + " " + booking.toString());
 			out.append('\n');
-		});
+		}
 
 		return out.toString();
 	}

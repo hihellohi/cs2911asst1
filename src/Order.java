@@ -52,10 +52,7 @@ public class Order{
 		StringBuilder result = new StringBuilder();
 		Depot last = null;
 
-		Iterator<Caravan> itCaravan = caravans.iterator();
-		while(itCaravan.hasNext()){
-			Caravan caravan = itCaravan.next();					
-
+		for(Caravan caravan: caravans){
 			if(last == caravan.getDepot()){
 				result.append(", ");
 			}
@@ -89,9 +86,9 @@ public class Order{
 	 * @pre lockIn() has been called at least once since the last call of delete() and object creation
 	 */
 	public void delete(){
-		caravans.iterator().forEachRemaining(van -> {
+		for(Caravan van: caravans){
 			van.removeBooking(timeslot);
-		});
+		}
 	}
 
 	/**
@@ -100,9 +97,9 @@ public class Order{
 	 * @pre isValid()
 	 */
 	public void lockIn(){
-		caravans.iterator().forEachRemaining(van -> {
+		for(Caravan van: caravans){
 			van.addBooking(timeslot);
-		});
+		}
 	}
 
 	/**
